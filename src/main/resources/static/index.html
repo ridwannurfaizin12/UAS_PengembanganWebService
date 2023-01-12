@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>Data Akses</div>
+        <script>
+            function postData(){
+                let sdata = {"id":4,"nama":"aqua", "jumlah":1, "gambar":""};
+                let json = JSON.stringify(sdata);
+                let url = "http://localhost:3001/post";
+                $.ajax({
+                    url: url,
+                    data: json,
+                    contentType: "application/json",
+                    method: "POST",
+                    dataType: "text",
+                    success: function(message){
+                        document.getElementById('view').innerHTML = message;
+                        console.log(message);  
+                    }
+                });
+            }
+            
+            function putData(){
+                let sdata = {"id":1,"nama":"bango"};
+                let json = JSON.stringify(sdata);
+                let url = "http://localhost:3001/put";
+                $.ajax({
+                    url: url,
+                    data: json,
+                    contentType: "application/json",
+                    method: "PUT",
+                    dataType: "text",
+                    success: function(message){
+                        document.getElementById('view').innerHTML = message;
+                        console.log(message);  
+                    }
+                });
+            }
+            
+            function getData(){
+		let url = "http://localhost:3001/get";
+                $.ajax({
+                    url: url,
+                    method:'GET',
+                    dataType:'text', 
+                    success: function(message){
+                        document.getElementById('view').innerHTML = message;
+                    }
+		});
+            }
+			
+            function delData(){
+                let id = document.getElementById("id").value;
+                let url = "http://localhost:3001/del/"+id;
+                $.ajax({
+                    url: url,
+                    method:'DELETE',
+                    dataType:'text', 
+                    success: function(message){
+                        document.getElementById('view').innerHTML = message;
+                    }
+		});
+            }
+			
+        </script>
+        <button onclick="postData()">POST DATA</button>
+        <button onclick="putData()">PUT DATA</button>
+        <button onclick="getData()">GET DATA</button>
+        <button onclick="delData()">DEL DATA</button>
+        <input type="text" id="id" name="id">
+        <hr>
+        <div id="view"></div>
+    </body>
+</html>
